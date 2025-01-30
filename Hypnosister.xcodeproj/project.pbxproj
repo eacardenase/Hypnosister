@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		A5F2C3FA2D4C3FEF0073A8DD /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A5F2C3F92D4C3FEF0073A8DD /* README.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		A5F2C3C52D4C3F940073A8DD /* Hypnosister.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hypnosister.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5F2C3F92D4C3FEF0073A8DD /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -45,6 +50,7 @@
 		A5F2C3BC2D4C3F940073A8DD = {
 			isa = PBXGroup;
 			children = (
+				A5F2C3F92D4C3FEF0073A8DD /* README.md */,
 				A5F2C3C72D4C3F940073A8DD /* Hypnosister */,
 				A5F2C3C62D4C3F940073A8DD /* Products */,
 			);
@@ -121,6 +127,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5F2C3FA2D4C3FEF0073A8DD /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

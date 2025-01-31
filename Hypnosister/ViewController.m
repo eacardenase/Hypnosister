@@ -27,29 +27,10 @@
 
 - (void)setupViews
 {
-    BNRHypnosisView *firstView = [BNRHypnosisView new];
+    BNRHypnosisView *firstView = [[BNRHypnosisView alloc] initWithFrame:self.view.bounds];
     firstView.backgroundColor = [UIColor redColor];
     
-    BNRHypnosisView *secondView = [[BNRHypnosisView alloc] init];
-    secondView.backgroundColor = [UIColor blueColor];
-
-    firstView.translatesAutoresizingMaskIntoConstraints = NO;
-    secondView.translatesAutoresizingMaskIntoConstraints = NO;
-    
     [self.view addSubview:firstView];
-    [firstView addSubview:secondView];
-    
-    [NSLayoutConstraint activateConstraints:@[
-        [firstView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor constant:240],
-        [firstView.leadingAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.leadingAnchor constant:160],
-        [firstView.widthAnchor constraintEqualToConstant:100],
-        [firstView.heightAnchor constraintEqualToConstant:150],
-        
-        [secondView.topAnchor constraintEqualToAnchor:firstView.topAnchor constant:30],
-        [secondView.leadingAnchor constraintEqualToAnchor:firstView.leadingAnchor constant:20],
-        [secondView.widthAnchor constraintEqualToConstant:50],
-        [secondView.heightAnchor constraintEqualToAnchor:secondView.widthAnchor],
-    ]];
 }
 
 @end

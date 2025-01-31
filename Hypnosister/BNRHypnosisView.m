@@ -9,6 +9,15 @@
 
 @implementation BNRHypnosisView
 
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    if (self = [super initWithFrame:frame]) {
+        self.backgroundColor = [UIColor clearColor]; // transparent
+    }
+    
+    return self;
+}
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
@@ -25,6 +34,9 @@
                                                     startAngle:0
                                                       endAngle:M_PI * 2
                                                      clockwise:YES];
+    path.lineWidth = 10.0;
+    
+    [[UIColor grayColor] setStroke];
     [path stroke];
 }
 

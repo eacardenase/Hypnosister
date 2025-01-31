@@ -28,7 +28,6 @@
 - (void)setupViews
 {
     BNRHypnosisView *firstView = [[BNRHypnosisView alloc] initWithFrame:self.view.bounds];
-    firstView.backgroundColor = [UIColor redColor];
     
     [self.view addSubview:firstView];
 }

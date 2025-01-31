@@ -32,6 +32,8 @@
     UIBezierPath *path = [[UIBezierPath alloc] init];
     
     for (float currentRadius = maxRadius; currentRadius > 0; currentRadius -= 20) {
+        [path moveToPoint:CGPointMake(center.x + currentRadius, center.y)];
+        
         [path addArcWithCenter:center
                         radius:currentRadius
                     startAngle:0
@@ -39,7 +41,7 @@
                      clockwise:YES];
     }
     
-    path.lineWidth = 10.0;
+    path.lineWidth = 10;
     
     [[UIColor grayColor] setStroke];
     [path stroke];

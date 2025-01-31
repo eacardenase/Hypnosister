@@ -7,8 +7,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class BNRHypnosisView;
+
 @interface ViewController : UIViewController
 
+//@property (nonatomic) BNRHypnosisView *firstView;
 
 @end
 

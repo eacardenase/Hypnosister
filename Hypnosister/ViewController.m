@@ -31,22 +31,20 @@
     CGRect bigRect = screenRect;
     bigRect.size.width *= 2.0;
     bigRect.size.height *= 2.0;
-    BNRHypnosisView *hyposisView = [[BNRHypnosisView alloc] initWithFrame:bigRect];
     
     UIScrollView *scrollView = [UIScrollView new];
-    
     scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     scrollView.contentSize = bigRect.size;
-    
-    [scrollView addSubview:hyposisView];
-    
     [self.view addSubview:scrollView];
     
+    BNRHypnosisView *hyposisView = [[BNRHypnosisView alloc] initWithFrame:bigRect];
+    [scrollView addSubview:hyposisView];
+    
     [NSLayoutConstraint activateConstraints:@[
-        [scrollView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
-        [scrollView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
-        [scrollView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
-        [scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+        [scrollView.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:-100],
+        [scrollView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:-100],
+        [scrollView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:+100],
+        [scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant:+100],
     ]];
 }
 

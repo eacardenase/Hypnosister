@@ -18,15 +18,47 @@
     return self;
 }
 
+- (CGPoint)getCenter:(CGRect)bounds
+{
+    CGPoint center;
+    center.x = bounds.origin.x + bounds.size.width / 2.0;
+    center.y = bounds.origin.y + bounds.size.height / 2.0;
+    
+    return center;
+}
+
+- (void)addGradientLayerWithCenter:(CGPoint)center toLayer:(CALayer *)layer
+{
+    UIColor *topColor = [UIColor colorWithRed:0.99 green:0.36 blue:0.37 alpha:1];
+    UIColor *bottomColor = [UIColor colorWithRed:0.9 green:0 blue:0.45 alpha:1];
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    
+    gradientLayer.colors = @[(id)topColor.CGColor, (id)bottomColor.CGColor];
+    gradientLayer.locations = @[@(0), @(1)];
+    gradientLayer.frame = self.bounds;
+    
+    CAShapeLayer *layerMask = [CAShapeLayer layer];
+    UIBezierPath *trianglePath = [UIBezierPath bezierPath];
+    CGPoint triangleCenter;
+    triangleCenter.x = center.x;
+    triangleCenter.y = center.y - 150;
+    
+    [trianglePath moveToPoint:triangleCenter];
+    [trianglePath addLineToPoint:CGPointMake(triangleCenter.x + 100, triangleCenter.y + 300)];
+    [trianglePath addLineToPoint:CGPointMake(triangleCenter.x - 100, triangleCenter.y + 300)];
+    layerMask.path = trianglePath.CGPath;
+    
+    gradientLayer.mask = layerMask;
+    
+    [layer addSublayer:gradientLayer];
+}
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
     CGRect bounds = self.bounds;
     
-    CGPoint center;
-    center.x = bounds.origin.x + bounds.size.width / 2.0;
-    center.y = bounds.origin.y + bounds.size.height / 2.0;
-    
+    CGPoint center = [self getCenter:bounds];
     float maxRadius = hypot(bounds.size.width, bounds.size.height) / 2.0;
     
     UIBezierPath *path = [[UIBezierPath alloc] init];
@@ -46,29 +78,7 @@
     [[UIColor grayColor] setStroke];
     [path stroke];
     
-    UIColor *topColor = [UIColor colorWithRed:0.99 green:0.36 blue:0.37 alpha:1];
-    UIColor *bottomColor = [UIColor colorWithRed:0.9 green:0 blue:0.45 alpha:1];
-    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    
-    gradientLayer.colors = @[(id)topColor.CGColor, (id)bottomColor.CGColor];
-    gradientLayer.locations = @[@(0), @(1)];
-    gradientLayer.frame = bounds;
-    
-    CAShapeLayer *layerMask = [CAShapeLayer layer];
-    UIBezierPath *trianglePath = [UIBezierPath bezierPath];
-    CGPoint triangleCenter;
-    triangleCenter.x = center.x;
-    triangleCenter.y = center.y - 150;
-    
-    [trianglePath moveToPoint:triangleCenter];
-    [trianglePath addLineToPoint:CGPointMake(triangleCenter.x + 100, triangleCenter.y + 300)];
-    [trianglePath addLineToPoint:CGPointMake(triangleCenter.x - 100, triangleCenter.y + 300)];
-    layerMask.path = trianglePath.CGPath;
-    
-    NSLog(@"%f %f", center.x, center.y);
-    
-    [self.layer addSublayer:gradientLayer];
-    gradientLayer.mask = layerMask;
+    [self addGradientLayerWithCenter:center toLayer:self.layer];
 }
 
 @end

@@ -10,6 +10,8 @@
 @interface BNRHypnosisView ()
 
 @property (nonatomic) UIColor *circleColor;
+@property (nonatomic) UIColor *gradientTopColor;
+@property (nonatomic) UIColor *gradientBottomColor;
 
 @end
 
@@ -25,11 +27,10 @@
     return self;
 }
 
-- (void)setCircleColor:(UIColor *)circleColor
-{
-    _circleColor = circleColor;
-    [self setNeedsDisplay];
-}
+//- (void)setCircleColor:(UIColor *)circleColor
+//{
+//    _circleColor = circleColor;
+//}
 
 - (CGPoint)getCenter:(CGRect)bounds
 {
@@ -40,13 +41,13 @@
     return center;
 }
 
-- (void)addGradientLayerWithCenter:(CGPoint)center toLayer:(CALayer *)layer
+- (CAGradientLayer *)getGradientLayerWithCenter:(CGPoint)center
 {
-    UIColor *topColor = [UIColor colorWithRed:0.99 green:0.36 blue:0.37 alpha:1];
-    UIColor *bottomColor = [UIColor colorWithRed:0.9 green:0 blue:0.45 alpha:1];
+    self.gradientTopColor = [self getRandomColor];
+    self.gradientBottomColor = [self getRandomColor];
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
     
-    gradientLayer.colors = @[(id)topColor.CGColor, (id)bottomColor.CGColor];
+    gradientLayer.colors = @[(id)self.gradientTopColor.CGColor, (id)self.gradientBottomColor.CGColor];
     gradientLayer.locations = @[@(0.3), @(1)];
     gradientLayer.frame = self.bounds;
     
@@ -63,7 +64,7 @@
     
     gradientLayer.mask = layerMask;
     
-    [layer addSublayer:gradientLayer];
+    return gradientLayer;
 }
 
 // Only override drawRect: if you perform custom drawing.
@@ -91,18 +92,26 @@
     [self.circleColor setStroke];
     [path stroke];
     
-    [self addGradientLayerWithCenter:center toLayer:self.layer];
+    CAGradientLayer *gradientLayer = [self getGradientLayerWithCenter:center];
+    [self.layer addSublayer:gradientLayer];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    self.circleColor = [self getRandomColor];
+    self.gradientTopColor = [self getRandomColor];
+    self.gradientBottomColor = [self getRandomColor];
+    
+    [self setNeedsDisplay];
+}
+
+- (UIColor *)getRandomColor
 {
     float red = (arc4random() % 100) / 100.0;
     float green = (arc4random() % 100) / 100.0;
     float blue = (arc4random() % 100) / 100.0;
     
-    UIColor *randomColor = [UIColor colorWithRed:red green:green blue:blue alpha:1.0];
-    
-    self.circleColor = randomColor;
+    return [UIColor colorWithRed:red green:green blue:blue alpha:1.0];
 }
 
 @end

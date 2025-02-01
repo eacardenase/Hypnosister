@@ -45,6 +45,30 @@
     
     [[UIColor grayColor] setStroke];
     [path stroke];
+    
+    UIColor *topColor = [UIColor colorWithRed:0.99 green:0.36 blue:0.37 alpha:1];
+    UIColor *bottomColor = [UIColor colorWithRed:0.9 green:0 blue:0.45 alpha:1];
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    
+    gradientLayer.colors = @[(id)topColor.CGColor, (id)bottomColor.CGColor];
+    gradientLayer.locations = @[@(0), @(1)];
+    gradientLayer.frame = bounds;
+    
+    CAShapeLayer *layerMask = [CAShapeLayer layer];
+    UIBezierPath *trianglePath = [UIBezierPath bezierPath];
+    CGPoint triangleCenter;
+    triangleCenter.x = center.x;
+    triangleCenter.y = center.y - 150;
+    
+    [trianglePath moveToPoint:triangleCenter];
+    [trianglePath addLineToPoint:CGPointMake(triangleCenter.x + 100, triangleCenter.y + 300)];
+    [trianglePath addLineToPoint:CGPointMake(triangleCenter.x - 100, triangleCenter.y + 300)];
+    layerMask.path = trianglePath.CGPath;
+    
+    NSLog(@"%f %f", center.x, center.y);
+    
+    [self.layer addSublayer:gradientLayer];
+    gradientLayer.mask = layerMask;
 }
 
 @end

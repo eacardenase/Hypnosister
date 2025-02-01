@@ -47,7 +47,7 @@
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
     
     gradientLayer.colors = @[(id)topColor.CGColor, (id)bottomColor.CGColor];
-    gradientLayer.locations = @[@(0), @(1)];
+    gradientLayer.locations = @[@(0.3), @(1)];
     gradientLayer.frame = self.bounds;
     
     CAShapeLayer *layerMask = [CAShapeLayer layer];
@@ -95,9 +95,7 @@
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    NSLog(@"%@ was touched", self);
-    
+{    
     float red = (arc4random() % 100) / 100.0;
     float green = (arc4random() % 100) / 100.0;
     float blue = (arc4random() % 100) / 100.0;

@@ -30,21 +30,25 @@
     CGRect screenRect = self.view.bounds;
     CGRect bigRect = screenRect;
     bigRect.size.width *= 2.0;
-    bigRect.size.height *= 2.0;
     
     UIScrollView *scrollView = [UIScrollView new];
     scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     scrollView.contentSize = bigRect.size;
+    scrollView.pagingEnabled = YES;
     [self.view addSubview:scrollView];
     
-    BNRHypnosisView *hyposisView = [[BNRHypnosisView alloc] initWithFrame:bigRect];
+    BNRHypnosisView *hyposisView = [[BNRHypnosisView alloc] initWithFrame:screenRect];
     [scrollView addSubview:hyposisView];
     
+    screenRect.origin.x += screenRect.size.width;
+    BNRHypnosisView *anotherView = [[BNRHypnosisView alloc] initWithFrame:screenRect];
+    [scrollView addSubview:anotherView];
+    
     [NSLayoutConstraint activateConstraints:@[
-        [scrollView.topAnchor constraintEqualToAnchor:self.view.topAnchor constant:-100],
-        [scrollView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor constant:-100],
-        [scrollView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor constant:+100],
-        [scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor constant:+100],
+        [scrollView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
+        [scrollView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
+        [scrollView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
+        [scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
     ]];
 }
 

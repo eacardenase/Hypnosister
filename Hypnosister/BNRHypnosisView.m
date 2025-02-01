@@ -7,15 +7,28 @@
 
 #import "BNRHypnosisView.h"
 
+@interface BNRHypnosisView ()
+
+@property (nonatomic) UIColor *circleColor;
+
+@end
+
 @implementation BNRHypnosisView
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor clearColor]; // transparent
+        self.circleColor = [UIColor purpleColor];
     }
     
     return self;
+}
+
+- (void)setCircleColor:(UIColor *)circleColor
+{
+    _circleColor = circleColor;
+    [self setNeedsDisplay];
 }
 
 - (CGPoint)getCenter:(CGRect)bounds
@@ -75,10 +88,23 @@
     
     path.lineWidth = 10;
     
-    [[UIColor grayColor] setStroke];
+    [self.circleColor setStroke];
     [path stroke];
     
-    [self addGradientLayerWithCenter:center toLayer:self.layer];
+//    [self addGradientLayerWithCenter:center toLayer:self.layer];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"%@ was touched", self);
+    
+    float red = (arc4random() % 100) / 100.0;
+    float green = (arc4random() % 100) / 100.0;
+    float blue = (arc4random() % 100) / 100.0;
+    
+    UIColor *randomColor = [UIColor colorWithRed:red green:green blue:blue alpha:1.0];
+    
+    self.circleColor = randomColor;
 }
 
 @end

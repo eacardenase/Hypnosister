@@ -21,16 +21,11 @@
 {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor clearColor]; // transparent
-        self.circleColor = [UIColor purpleColor];
+        self.circleColor = [self getRandomColor];
     }
     
     return self;
 }
-
-//- (void)setCircleColor:(UIColor *)circleColor
-//{
-//    _circleColor = circleColor;
-//}
 
 - (CGPoint)getCenter:(CGRect)bounds
 {

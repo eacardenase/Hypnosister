@@ -8,7 +8,9 @@
 #import "ViewController.h"
 #import "BNRHypnosisView.h"
 
-@interface ViewController ()
+@interface ViewController () <UIScrollViewDelegate>
+
+@property (nonatomic) BNRHypnosisView *hypnosisView;
 
 - (void)setupViews;
 
@@ -29,20 +31,23 @@
 {
     CGRect screenRect = self.view.bounds;
     CGRect bigRect = screenRect;
-    bigRect.size.width *= 2.0;
+//    bigRect.size.width *= 2.0;
     
     UIScrollView *scrollView = [UIScrollView new];
     scrollView.translatesAutoresizingMaskIntoConstraints = NO;
     scrollView.contentSize = bigRect.size;
-    scrollView.pagingEnabled = YES;
+//    scrollView.pagingEnabled = YES;
     [self.view addSubview:scrollView];
+    scrollView.delegate = self;
+    scrollView.minimumZoomScale = 1;
+    scrollView.maximumZoomScale = 1.5;
     
-    BNRHypnosisView *hyposisView = [[BNRHypnosisView alloc] initWithFrame:screenRect];
-    [scrollView addSubview:hyposisView];
+    self.hypnosisView = [[BNRHypnosisView alloc] initWithFrame:screenRect];
+    [scrollView addSubview:self.hypnosisView];
     
-    screenRect.origin.x += screenRect.size.width;
-    BNRHypnosisView *anotherView = [[BNRHypnosisView alloc] initWithFrame:screenRect];
-    [scrollView addSubview:anotherView];
+//    screenRect.origin.x += screenRect.size.width;
+//    BNRHypnosisView *anotherView = [[BNRHypnosisView alloc] initWithFrame:screenRect];
+//    [scrollView addSubview:anotherView];
     
     [NSLayoutConstraint activateConstraints:@[
         [scrollView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
@@ -50,6 +55,13 @@
         [scrollView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
         [scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
     ]];
+}
+
+# pragma mark - UIScrollViewDelegate
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.hypnosisView;
 }
 
 @end

@@ -22,6 +22,8 @@
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor clearColor]; // transparent
         self.circleColor = [self getRandomColor];
+        self.gradientTopColor = [self getRandomColor];
+        self.gradientBottomColor = [self getRandomColor];
     }
     
     return self;
@@ -38,8 +40,6 @@
 
 - (CAGradientLayer *)getGradientLayerWithCenter:(CGPoint)center
 {
-    self.gradientTopColor = [self getRandomColor];
-    self.gradientBottomColor = [self getRandomColor];
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
     
     gradientLayer.colors = @[(id)self.gradientTopColor.CGColor, (id)self.gradientBottomColor.CGColor];
